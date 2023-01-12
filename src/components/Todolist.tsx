@@ -10,6 +10,7 @@ export interface TaskType {
 interface TodolistTypes {
     title: string
     task: Array<TaskType>
+    addTask: () => void
     removeTask: (taskId: string) => void
     changeFilter: (status: FilterValueType) => void
 }
@@ -21,6 +22,7 @@ const Todolist = (props: TodolistTypes) => {
         task,
         removeTask,
         changeFilter,
+        addTask,
     } = props
 
     return (
@@ -28,7 +30,7 @@ const Todolist = (props: TodolistTypes) => {
             <h3>{title}</h3>
             <div>
                 <input type="text"/>
-                <button>+</button>
+                <button onClick={() => addTask()}>+</button>
             </div>
             <ul>
                 {task.map(t => <li key={t.id}>
