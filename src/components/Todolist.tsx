@@ -84,9 +84,9 @@ const Todolist = (props: TodolistTypes) => {
                         changeTaskStatus(t.id, newIsDoneValue)
                     }
 
-                    return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
+                    return <li key={t.id} >
                         <input type="checkbox" defaultChecked={t.isDone} onChange={onChangeHandler}/>
-                        <span>{t.title}</span>
+                        <span className={t.isDone ? 'is-done' : ''}>{t.title}</span>
                         <button onClick={onRemoveTaskClickHandler}>X</button>
                     </li>
                 })}
