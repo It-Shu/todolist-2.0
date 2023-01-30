@@ -8,11 +8,12 @@ export interface TaskType {
 }
 
 interface TodolistTypes {
+    todolistID: string
     todolistTitle: string
     task: Array<TaskType>
     addTask: (title: string) => void
     removeTask: (taskId: string) => void
-    changeFilter: (status: FilterValueType) => void
+    changeFilter: (status: FilterValueType, todolistId: string) => void
     changeTaskStatus: (id: string, isDone: boolean) => void
     filter: FilterValueType
 }
@@ -27,11 +28,11 @@ const Todolist = (props: TodolistTypes) => {
         addTask,
         changeTaskStatus,
         filter,
+        todolistID,
     } = props
 
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
-
 
     const addNewTask = () => {
         if (title.trim() !== '') {
@@ -51,13 +52,13 @@ const Todolist = (props: TodolistTypes) => {
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => (e.charCode === 13) ? addNewTask() : null
 
     const onAllClickHandler = () => {
-        changeFilter('all')
+        changeFilter('all', todolistID)
     }
     const onActiveClickHandler = () => {
-        changeFilter('active')
+        changeFilter('active', todolistID)
     }
     const onCompletedClickHandler = () => {
-        changeFilter('completed')
+        changeFilter('completed', todolistID)
     }
 
     return (
@@ -73,7 +74,8 @@ const Todolist = (props: TodolistTypes) => {
                 {error && <div className={'error-message'}>{error}</div>}
             </div>
             <ul>
-                {task.map((t) => {
+                {
+                    task.map((t) => {
 
                     const onRemoveTaskClickHandler = () => {
                         removeTask(t.id)
@@ -89,15 +91,13 @@ const Todolist = (props: TodolistTypes) => {
                         <span className={t.isDone ? 'is-done' : ''}>{t.title}</span>
                         <button onClick={onRemoveTaskClickHandler}>X</button>
                     </li>
-                })}
+                })
+                }
             </ul>
             <div>
                 <button className={filter === 'all' ? 'active-filter' : ''} onClick={onAllClickHandler}>All</button>
-                <button className={filter === 'active' ? 'active-filter' : ''} onClick={onActiveClickHandler}>Active
-                </button>
-                <button className={filter === 'completed' ? 'active-filter' : ''}
-                        onClick={onCompletedClickHandler}>Completed
-                </button>
+                <button className={filter === 'active' ? 'active-filter' : ''} onClick={onActiveClickHandler}>Active</button>
+                <button className={filter === 'completed' ? 'active-filter' : ''} onClick={onCompletedClickHandler}>Completed</button>
             </div>
         </div>
     );
