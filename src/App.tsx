@@ -104,7 +104,7 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className='App'>
             {
                 todolists.map(tl => {
 
