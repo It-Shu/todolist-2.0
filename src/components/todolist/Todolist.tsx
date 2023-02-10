@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { FilterValueType } from '../../App';
 import AddItemForm from "../addItem-form/AddItemForm";
 
@@ -19,8 +19,6 @@ interface TodolistTypes {
     filter: FilterValueType
     removeTodolist: (id: string) => void
 }
-
-const enterCharCodeKey = 13;
 
 const Todolist = (props: TodolistTypes) => {
 
@@ -57,16 +55,6 @@ const Todolist = (props: TodolistTypes) => {
     return (
         <div>
             <h3>{todolistTitle}<button onClick={removeTodolistHandler}>X</button></h3>
-            {/*<div>*/}
-            {/*    <input*/}
-            {/*        value={title}*/}
-            {/*        onChange={onChangeHandler}*/}
-            {/*        onKeyPress={onKeyPressHandler}*/}
-            {/*        className={error ? 'error' : ''}*/}
-            {/*    />*/}
-            {/*    <button onClick={addNewTask}>+</button>*/}
-            {/*    {error && <div className={'error-message'}>{error}</div>}*/}
-            {/*</div>*/}
             <AddItemForm addItem={addNewTask}/>
             <ul>
                 {
