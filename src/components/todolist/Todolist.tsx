@@ -1,5 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { FilterValueType } from '../../App';
+import AddItemForm from "../addItem-form/AddItemForm";
 
 export interface TaskType {
     id: string
@@ -35,29 +36,12 @@ const Todolist = (props: TodolistTypes) => {
         removeTodolist,
     } = props;
 
-    const [title, setTitle] = useState('');
-    const [error, setError] = useState<string | null>(null);
-
-    const addNewTask = () => {
-        if (title.trim() !== '') {
+    const addNewTask = (title: string) => {
             addTask(title, todolistId);
-            setTitle('');
-        } else {
-            setError('Title is required');
-        }
     };
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId);
-    };
-
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value);
-        setError(null);
-    };
-
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        return event.charCode === enterCharCodeKey ? addNewTask() : null;
     };
 
     const onAllClickHandler = () => {
@@ -73,15 +57,17 @@ const Todolist = (props: TodolistTypes) => {
     return (
         <div>
             <h3>{todolistTitle}<button onClick={removeTodolistHandler}>X</button></h3>
-            <div>
-                <input
-                    value={title}
-                    onChange={onChangeHandler}
-                    onKeyPress={onKeyPressHandler}
-                />
-                <button onClick={addNewTask}>+</button>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+            {/*<div>*/}
+            {/*    <input*/}
+            {/*        value={title}*/}
+            {/*        onChange={onChangeHandler}*/}
+            {/*        onKeyPress={onKeyPressHandler}*/}
+            {/*        className={error ? 'error' : ''}*/}
+            {/*    />*/}
+            {/*    <button onClick={addNewTask}>+</button>*/}
+            {/*    {error && <div className={'error-message'}>{error}</div>}*/}
+            {/*</div>*/}
+            <AddItemForm addItem={addNewTask}/>
             <ul>
                 {
                     task.map(ts => {
