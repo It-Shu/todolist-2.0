@@ -1,11 +1,18 @@
 import React from 'react';
 
-const EditableSpan = () => {
-    return (
-        <div>
-            EditableSpan
-        </div>
-    );
+interface EditableSpanType {
+    isDone: boolean
+    title: string
+}
+
+const EditableSpan = (props: EditableSpanType) => {
+
+    const {
+        isDone,
+        title,
+    } = props;
+
+    return <span className={isDone ? 'is-done' : ''}>{title}</span>
 };
 
 export default EditableSpan;
