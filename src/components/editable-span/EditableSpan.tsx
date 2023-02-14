@@ -12,6 +12,7 @@ const EditableSpan = (props: EditableSpanType) => {
         title,
     } = props;
 
+    
     return <span className={isDone ? 'is-done' : ''}>{title}</span>
 };
 
