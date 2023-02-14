@@ -6,9 +6,7 @@ interface EditableSpanType {
 }
 
 const EditableSpan = (props: EditableSpanType) => {
-
     
-
     const {
         isDone,
         title,
