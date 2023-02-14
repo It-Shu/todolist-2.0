@@ -3,7 +3,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 const enterCharCodeKey = 13;
 
 interface AddItemFormType {
-    addItem: (title: string) => void
+    addItem?: (title: string) => void
 }
 
 const AddItemForm = (props: AddItemFormType) => {
@@ -13,7 +13,7 @@ const AddItemForm = (props: AddItemFormType) => {
     const [error, setError] = useState<string | null>(null);
 
     const addNewTodoList = () => {
-        if (title.trim() !== '') {
+        if (title.trim() !== '' && addItem) {
             addItem(title);
             setTitle('');
         } else {
