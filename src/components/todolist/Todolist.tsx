@@ -17,6 +17,8 @@ interface TodolistTypes {
     removeTask: (taskId: string, todolistId: string) => void
     changeFilter: (status: FilterValueType, todolistId: string) => void
     changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
+    changeTaskTitle: (id: string, newTaskTitle: string, todolistId: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
     filter: FilterValueType
     removeTodolist: (id: string) => void
 }
@@ -33,6 +35,8 @@ const Todolist = (props: TodolistTypes) => {
         filter,
         todolistId,
         removeTodolist,
+        changeTaskTitle,
+        changeTodolistTitle,
     } = props;
 
     const addNewTask = (title: string) => {
@@ -53,9 +57,13 @@ const Todolist = (props: TodolistTypes) => {
         changeFilter('completed', todolistId);
     };
 
+    const onChangeTodolistTitle = (title: string) => {
+        changeTodolistTitle(todolistId, title);
+    }
+
     return (
         <div>
-            <h3>{todolistTitle}
+            <h3><EditableSpan title={todolistTitle} onChange={onChangeTodolistTitle}/>
                 <button onClick={removeTodolistHandler}>X</button>
             </h3>
             <AddItemForm addItem={addNewTask}/>
@@ -73,9 +81,13 @@ const Todolist = (props: TodolistTypes) => {
                             changeTaskStatus(ts.id, newIsDoneValue, todolistId);
                         };
 
+                        const onTitleChangeHandler = (newValue: string) => {
+                            changeTaskTitle(ts.id, newValue, todolistId);
+                        }
+
                         return <li key={ts.id}>
                             <input type="checkbox" defaultChecked={ts.isDone} onChange={onChangeCheckboxHandler}/>
-                            <EditableSpan title={ts.title} isDone={ts.isDone}/>
+                            <EditableSpan title={ts.title} isDone={ts.isDone} onChange={onTitleChangeHandler}/>
                             {/*<span className={ts.isDone ? 'is-done' : ''}>{ts.title}</span>*/}
                             <button onClick={onRemoveTaskClickHandler}>X</button>
                         </li>;
