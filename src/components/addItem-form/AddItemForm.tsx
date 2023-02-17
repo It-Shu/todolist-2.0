@@ -2,8 +2,6 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from "@material-ui/core";
 import {AddBox} from "@material-ui/icons";
 
-const enterCharCodeKey = 13;
-
 interface AddItemFormType {
     addItem?: (title: string) => void
 }
@@ -29,7 +27,7 @@ const AddItemForm = (props: AddItemFormType) => {
     };
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        return event.charCode === enterCharCodeKey ? addNewTodoList() : null;
+        return event.key === 'Enter' ? addNewTodoList() : null;
     };
 
     return (
