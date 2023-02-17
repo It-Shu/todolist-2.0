@@ -27,7 +27,7 @@ const EditableSpan = (props: EditableSpanType) => {
     };
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.charCode === 13) {
+        if (event.key === 'Enter') {
             setEditMode(!editMode)
         }
     };
