@@ -33,8 +33,7 @@ const EditableSpan = (props: EditableSpanType) => {
     };
 
     return editMode
-        ? <TextField variant={'outlined'} value={title} autoFocus onBlur={activateEditMode} onChange={onChangeHandler}
-                     onKeyPress={onKeyPressHandler}/>
+        ? <TextField variant={'outlined'} value={title} autoFocus onBlur={activateEditMode} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
         : <span className={isDone ? 'is-done' : ''} onDoubleClick={activateEditMode}>{title}</span>
 };
 
