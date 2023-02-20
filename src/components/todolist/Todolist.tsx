@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValueType} from '../../App';
+import {FilterValuesType} from '../../App';
 import AddItemForm from "../addItem-form/AddItemForm";
 import EditableSpan from "../editable-span/EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
@@ -17,11 +17,11 @@ interface TodolistTypes {
     task: Array<TaskType>
     addTask: (title: string, todolistId: string) => void
     removeTask: (taskId: string, todolistId: string) => void
-    changeFilter: (status: FilterValueType, todolistId: string) => void
+    changeFilter: (status: FilterValuesType, todolistId: string) => void
     changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
     changeTaskTitle: (id: string, newTaskTitle: string, todolistId: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
-    filter: FilterValueType
+    filter: FilterValuesType
     removeTodolist: (id: string) => void
 }
 
