@@ -1,7 +1,5 @@
-import {TableRow} from "@material-ui/core";
-
 interface StateType {
-    age: string
+    age: number
     childrenCount: number
     name: string
 }
@@ -15,11 +13,12 @@ interface ActionType {
 export const userReducer = (state: StateType, action: ActionType) => {
     switch (action.type) {
         case 'INCREMENT-AGE':
-            state.age = state.age + 1;
-            return state;
+            return {...state, age: ++state.age}
         case 'INCREMENT-CHILDREN-COUNT':
-            state.childrenCount = state.childrenCount + 1;
-            return state;
+            return {...state, childrenCount: ++state.childrenCount}
+        case 'CHANGE-NAME':
+            let newName = 'Serega'
+            return {...state, name: newName}
         default:
             throw new Error('I don`t understand this type')
     }

@@ -6,12 +6,12 @@ import AddItemForm from "./components/addItem-form/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 
-export type FilterValueType = 'all' | 'active' | 'completed'
+export type FilterValuesType = 'all' | 'active' | 'completed'
 
 export type TodolistType = {
     id: string
     title: string
-    filter: FilterValueType
+    filter: FilterValuesType
 }
 
 export type TasksStateType = {
@@ -75,7 +75,7 @@ function App() {
         setTasks({...tasks});
     };
 
-    const changeFilter = (value: FilterValueType, todolistId: string) => {
+    const changeFilter = (value: FilterValuesType, todolistId: string) => {
         const todolist = todolists.find(tl => tl.id === todolistId);
 
         if (todolist) {
@@ -108,7 +108,7 @@ function App() {
         }
     };
 
-    const changeFilterStatus = (id: string, filter: FilterValueType, task: TasksStateType) => {
+    const changeFilterStatus = (id: string, filter: FilterValuesType, task: TasksStateType) => {
         const allTodolistTasks = task[id];
 
         let taskForTodolist = allTodolistTasks;
@@ -189,11 +189,10 @@ function App() {
 
                             changeFilterStatus(tl.id, tl.filter, tasks);
 
-                            return <Grid item>
+                            return <Grid item key={tl.id}>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
                                         todolistId={tl.id}
-                                        key={tl.id}
                                         todolistTitle={tl.title}
                                         task={changeFilterStatus(tl.id, tl.filter, tasks)}
                                         removeTask={removeTask}
