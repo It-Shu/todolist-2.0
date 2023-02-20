@@ -20,7 +20,7 @@ export type ChangeTodolistFilterActionType = {
     filter: FilterValuesType
 }
 
-interface StateType {
+interface TodolistStateType {
     id: string
     title: string
     filter: FilterValuesType
@@ -33,7 +33,7 @@ type ActionsType =
     | ChangeTodolistFilterActionType
 
 
-export const todolistsReducer = (state: StateType[], action: ActionsType) => {
+export const todolistsReducer = (state: TodolistStateType[], action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(tl => tl.id !== action.id)
@@ -69,18 +69,18 @@ export const todolistsReducer = (state: StateType[], action: ActionsType) => {
 }
 
 
-export const RemoveTodolist = (id: string): RemoveTodolistActionType => {
+export const removeTodolist = (id: string): RemoveTodolistActionType => {
     return {type: 'REMOVE-TODOLIST', id}
 }
 
-export const AddTodolist = (title: string): AddTodolistActionType => {
+export const addTodolist = (title: string): AddTodolistActionType => {
     return {type: 'ADD-TODOLIST', title}
 }
 
-export const ChangeTodolistTitle = ( id: string, title: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitle = (id: string, title: string): ChangeTodolistTitleActionType => {
     return {type: 'CHANGE-TODOLIST-TITLE', id, title}
 }
 
-export const ChangeTodolistFilter = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
+export const changeTodolistFilter = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
     return {type: 'CHANGE-TODOLIST-FILTER',id, filter}
 }
