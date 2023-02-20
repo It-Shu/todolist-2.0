@@ -84,22 +84,22 @@ function App() {
         }
     };
 
+    const sortTasksByIsDone = (tasksArray: TaskType[]) => {
+        return tasksArray.sort((a, b) => {
+            if (a.isDone === b.isDone) {
+                return 0;
+            }
+            if (a.isDone) {
+                return 1;
+            }
+            return -1;
+        });
+    }
+
     const changeStatus = (id: string, isDone: boolean, todolistId: string) => {
         const todolistTasks = tasks[todolistId];
 
         const task = todolistTasks.find(ts => ts.id === id);
-
-        const sortTasksByIsDone = (tasksArray: TaskType[]) => {
-            return tasksArray.sort((a, b) => {
-                if (a.isDone === b.isDone) {
-                    return 0;
-                }
-                if (a.isDone) {
-                    return 1;
-                }
-                return -1;
-            });
-        }
 
         if (task) {
             task.isDone = isDone;
