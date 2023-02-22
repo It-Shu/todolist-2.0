@@ -1,5 +1,3 @@
-// import {FilterValuesType, TasksStateType, TodolistType} from "../App";
-
 import {v4} from "uuid";
 import {TaskType} from "../components/todolist/Todolist";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
@@ -10,19 +8,22 @@ export type AddTaskActionType = {
     title: string
     todolistId: string
 }
+
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
     id: string
     todolistId: string
 }
+
 export type ChangeTaskTitleActionType = {
     type: 'CHANGE-TASK-TITLE'
     id: string
     title: string
     todolistId: string
 }
-export type ChangeTaskFilterActionType = {
-    type: 'CHANGE-TASK-FILTER'
+
+export type ChangeTaskStatusActionType = {
+    type: 'CHANGE-TASK-STATUS'
     id: string
     isDone: boolean
     todolistId: string
@@ -31,7 +32,7 @@ export type ChangeTaskFilterActionType = {
 type ActionsType =
     | RemoveTaskActionType
     | AddTaskActionType
-    | ChangeTaskFilterActionType
+    | ChangeTaskStatusActionType
     | ChangeTaskTitleActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
@@ -43,7 +44,7 @@ export const tasksReducer = (state = initialState, action: ActionsType): TasksSt
         case 'REMOVE-TASK': {
             const todolistTasks = state[action.todolistId];
             state[action.todolistId] = todolistTasks.filter(task => task.id !== action.id);
-            return state
+            return ({...state})
         }
         case 'ADD-TASK': {
             const newState = {...state}
@@ -63,11 +64,10 @@ export const tasksReducer = (state = initialState, action: ActionsType): TasksSt
             }
             return newState
         }
-        case 'CHANGE-TASK-FILTER': {
-            let newState = {...state}
-            const todolistTasks = newState[action.todolistId];
+        case 'CHANGE-TASK-STATUS': {
 
-            const task = todolistTasks.find(ts => ts.id === action.id);
+            const todolistTasks = state[action.todolistId];
+
             const sortTasksByIsDone = (tasksArray: TaskType[]) => {
                 return tasksArray.sort((a, b) => {
                     if (a.isDone === b.isDone) {
@@ -80,11 +80,16 @@ export const tasksReducer = (state = initialState, action: ActionsType): TasksSt
                 });
             }
 
-            if (task) {
-                task.isDone = action.isDone;
-                sortTasksByIsDone(todolistTasks)
-            }
-            return newState
+            state[action.todolistId] = todolistTasks.map(ts => {
+                if (ts.id === action.id) {
+                   return {...ts, isDone: action.isDone}
+
+                } else {
+                    return ts
+                }
+            });
+            sortTasksByIsDone(state[action.todolistId])
+            return ({...state})
         }
         case "ADD-TODOLIST": {
             return {...state, [action.todolistId]: []}
@@ -107,8 +112,8 @@ export const AddNewTask = (title: string, todolistId: string): AddTaskActionType
     return {type: 'ADD-TASK', title, todolistId}
 }
 
-export const ChangeTaskStatus = (id: string, isDone: boolean, todolistId: string): ChangeTaskFilterActionType => {
-    return {type: 'CHANGE-TASK-FILTER', id, isDone, todolistId}
+export const ChangeTaskStatus = (id: string, isDone: boolean, todolistId: string): ChangeTaskStatusActionType => {
+    return {type: 'CHANGE-TASK-STATUS', id, isDone, todolistId}
 }
 
 export const ChangeTaskTitle = (id: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
