@@ -1,9 +1,9 @@
-import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from '../../App';
-import AddItemForm from "../addItem-form/AddItemForm";
+import React, {ChangeEvent, useCallback} from 'react';
+import {AddItemForm} from "../addItem-form/AddItemForm";
 import EditableSpan from "../editable-span/EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
+import {FilterValuesType} from "../../AppWithRedux";
 
 export interface TaskType {
     id: string
@@ -25,8 +25,8 @@ interface TodolistTypes {
     removeTodolist: (id: string) => void
 }
 
-const Todolist = (props: TodolistTypes) => {
-
+const Todolist = React.memo((props: TodolistTypes) => {
+    console.log('Todolist called')
     const {
         todolistTitle,
         task,
@@ -41,9 +41,9 @@ const Todolist = (props: TodolistTypes) => {
         changeTodolistTitle,
     } = props;
 
-    const addNewTask = (title: string) => {
+    const addNewTask = useCallback((title: string) => {
         addTask(title, todolistId);
-    };
+    }, [addTask, todolistId]);
 
     const removeTodolistHandler = () => {
         removeTodolist(todolistId);
@@ -121,6 +121,6 @@ const Todolist = (props: TodolistTypes) => {
             </div>
         </div>
     );
-};
+});
 
 export default Todolist;

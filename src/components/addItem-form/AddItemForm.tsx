@@ -3,17 +3,18 @@ import {IconButton, TextField} from "@material-ui/core";
 import {AddBox} from "@material-ui/icons";
 
 interface AddItemFormType {
-    addItem?: (title: string) => void
+    addItem: (title: string) => void
 }
 
-const AddItemForm = (props: AddItemFormType) => {
+export const AddItemForm = React.memo((props: AddItemFormType) => {
     const {addItem} = props;
-
+    console.log('AddItemForm is called')
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
 
     const addNewTodoList = () => {
-        if (title.trim() !== '' && addItem) {
+        // if (title.trim() !== '' && addItem) {
+        if (title.trim() !== '') {
             addItem(title);
             setTitle('');
         } else {
@@ -47,6 +48,5 @@ const AddItemForm = (props: AddItemFormType) => {
             </IconButton>
         </div>
     );
-};
+});
 
-export default AddItemForm;
