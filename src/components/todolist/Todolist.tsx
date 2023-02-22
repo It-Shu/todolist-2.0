@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from '../../App';
 import AddItemForm from "../addItem-form/AddItemForm";
 import EditableSpan from "../editable-span/EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
+import {FilterValuesType} from "../../AppWithRedux";
 
 export interface TaskType {
     id: string
