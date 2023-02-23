@@ -3,7 +3,7 @@ import {AddItemForm} from "../addItem-form/AddItemForm";
 import EditableSpan from "../editable-span/EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-import {FilterValuesType} from "../../AppWithRedux";
+import {FilterValuesType, TasksStateType} from "../../AppWithRedux";
 
 export interface TaskType {
     id: string
@@ -63,6 +63,15 @@ const Todolist = React.memo((props: TodolistTypes) => {
         changeTodolistTitle(todolistId, title);
     }
 
+    let taskForTodolist = task;
+
+    if (filter === 'active') {
+        taskForTodolist = task.filter(ts => !ts.isDone);
+    }
+    if (filter === 'completed') {
+        taskForTodolist = task.filter(ts => ts.isDone);
+    }
+
     return (
         <div>
             <h3><EditableSpan title={todolistTitle} onChange={onChangeTodolistTitle}/>
@@ -73,7 +82,7 @@ const Todolist = React.memo((props: TodolistTypes) => {
             <AddItemForm addItem={addNewTask}/>
             <div>
                 {
-                    task.map(ts => {
+                    taskForTodolist.map(ts => {
 
                         const onRemoveTaskClickHandler = () => {
                             removeTask(ts.id, todolistId);

@@ -62,24 +62,6 @@ function AppWithRedux() {
         dispatch(ChangeTaskTitle(id, newTitle, todolistId))
     }, [dispatch]);
 
-    const changeFilterStatus =(id: string, filter: FilterValuesType, task: TasksStateType) => {
-        const allTodolistTasks = task[id];
-
-        let taskForTodolist = allTodolistTasks;
-
-        if (filter === 'active') {
-            taskForTodolist = allTodolistTasks.filter(ts => !ts.isDone);
-        }
-        if (filter === 'completed') {
-            taskForTodolist = allTodolistTasks.filter(ts => ts.isDone);
-        }
-
-        return taskForTodolist;
-
-    };
-
-
-
     return (
         <div className='App'>
             <AppBar position="static">
@@ -100,12 +82,13 @@ function AppWithRedux() {
                 <Grid container spacing={3}>
                     {
                         todolists.map(tl => {
+                            let todolistTasks = tasks[tl.id]
                             return <Grid item key={tl.id}>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
                                         todolistId={tl.id}
                                         todolistTitle={tl.title}
-                                        task={changeFilterStatus(tl.id, tl.filter, tasks)}
+                                        task={todolistTasks}
                                         removeTask={removeTask}
                                         addTask={addTask}
                                         changeFilter={changeFilter}
