@@ -8,7 +8,7 @@ interface AddItemFormType {
 
 export const AddItemForm = React.memo((props: AddItemFormType) => {
     const {addItem} = props;
-    console.log('AddItemForm is called')
+
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
 
