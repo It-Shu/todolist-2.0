@@ -87,7 +87,7 @@ const Todolist = React.memo((props: TodolistTypes) => {
 
                         return <Task
                             key={ts.id}
-                            taskId={ts.id}
+                            task={ts}
                             todolistId={todolistId}
                             taskTitle={ts.title}
                             taskStatus={ts.isDone}
