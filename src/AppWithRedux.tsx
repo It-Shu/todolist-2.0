@@ -30,37 +30,37 @@ function AppWithRedux() {
     // todolist
     const removeTodolist = useCallback((id: string) => {
         dispatch(RemoveTodolist(id))
-    },[dispatch]);
+    },[]);
 
     const addNewTodolist = useCallback((title: string) => {
         dispatch(AddTodolist(title))
-    }, [dispatch])
+    }, [])
 
     const changeTodolistTitle = useCallback((id: string, title: string) => {
         dispatch(ChangeTodolistTitle(id, title))
-    },[dispatch])
+    },[])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         dispatch(ChangeTodolistFilter(value, todolistId))
-    },[dispatch]);
+    },[]);
     // tasks
     const removeTask = useCallback((id: string, todolistId: string) => {
         dispatch(RemoveTask(id, todolistId))
 
-    }, [dispatch]);
+    }, []);
 
     const addTask = useCallback((title: string, todolistId: string) => {
         dispatch(AddNewTask(title, todolistId))
-    }, [dispatch]);
+    }, []);
 
     const changeStatus = useCallback((id: string, isDone: boolean, todolistId: string) => {
         const action = ChangeTaskStatus(id, isDone, todolistId)
         dispatch(action)
-    }, [dispatch]);
+    }, []);
 
     const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
         dispatch(ChangeTaskTitle(id, newTitle, todolistId))
-    }, [dispatch]);
+    }, []);
 
     return (
         <div className='App'>

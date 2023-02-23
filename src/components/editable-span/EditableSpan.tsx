@@ -7,8 +7,8 @@ interface EditableSpanType {
     onChange: (value: string) => void
 }
 
-const EditableSpan = (props: EditableSpanType) => {
-
+const EditableSpan = React.memo((props: EditableSpanType) => {
+    console.log('EditableSpan is called')
     const {
         isDone,
         title,
@@ -35,6 +35,6 @@ const EditableSpan = (props: EditableSpanType) => {
     return editMode
         ? <TextField variant={'outlined'} value={title} autoFocus onBlur={activateEditMode} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
         : <span className={isDone ? 'is-done' : ''} onDoubleClick={activateEditMode}>{title}</span>
-};
+});
 
 export default EditableSpan;
