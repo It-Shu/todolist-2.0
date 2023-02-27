@@ -1,14 +1,14 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {TextField} from "@material-ui/core";
 
-interface EditableSpanType {
+export interface EditableSpanType {
     isDone?: boolean
     title: string
     onChange: (value: string) => void
 }
 
 const EditableSpan = React.memo((props: EditableSpanType) => {
-    console.log('EditableSpan is called')
+
     const {
         isDone,
         title,

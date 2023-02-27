@@ -89,8 +89,6 @@ const Todolist = React.memo((props: TodolistTypes) => {
                             key={ts.id}
                             task={ts}
                             todolistId={todolistId}
-                            taskTitle={ts.title}
-                            taskStatus={ts.isDone}
                             removeTask={removeTask}
                             changeTaskTitle={changeTaskTitle}
                             changeTaskStatus={changeTaskStatus}

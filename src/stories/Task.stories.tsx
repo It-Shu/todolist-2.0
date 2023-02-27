@@ -13,7 +13,7 @@ export default {
     // argTypes: {
     //     backgroundColor: {control: 'color'},
     // },
-} as ComponentMeta<typeof Task>;
+} as Meta;
 
 
 const changeTaskStatusCallback = action('Status changed inside task')
