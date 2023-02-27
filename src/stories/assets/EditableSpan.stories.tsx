@@ -1,24 +1,32 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta, Story, Meta} from '@storybook/react';
 
-import {AddItemForm, AddItemFormType} from "../components/addItem-form/AddItemForm";
 import {action} from "@storybook/addon-actions";
+import EditableSpan, {EditableSpanType} from "../../components/editable-span/EditableSpan";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+
 export default {
-    title: 'Todolist/AddItemForm',
-    component: AddItemForm,
+    title: 'Todolist/EditableSpan',
+    component: EditableSpan,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {
-        backgroundColor: {control: 'color'},
+        onChange: {
+            description: 'Value EditableSpan changed'
+        },
+        value: {
+            defaultValue: 'HTML',
+            description: 'Start value EditableSpan'
+        }
     },
+
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: Story<AddItemFormType> = (args) => <AddItemForm {...args} />;
+const Template: Story<EditableSpanType> = (args) => <EditableSpan {...args} />;
 
-export const AddItemFormExample = Template.bind({});
+export const EditableSpanExample = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-AddItemFormExample.args = {
-    addItem: action('Button inside form clicked')
+EditableSpanExample.args = {
+    onChange: action('Value EditableSpan changed')
 };
