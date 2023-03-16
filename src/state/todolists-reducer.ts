@@ -1,5 +1,6 @@
 import {v4} from "uuid";
 import {FilterValuesType, TodolistType} from "../AppWithRedux";
+import {todolistAPI} from "../api/todolist-api";
 
 export type AddTodolistActionType = {
     type: 'ADD-TODOLIST'
@@ -76,3 +77,13 @@ export const ChangeTodolistTitle = (id: string, title: string): ChangeTodolistTi
 export const ChangeTodolistFilter = (filter: FilterValuesType, id: string): ChangeTodolistFilterActionType => {
     return {type: 'CHANGE-TODOLIST-FILTER',id, filter}
 }
+
+
+export const thunkCreator = (todolistId: string) => {
+    return (dispatch: any, getState: any) => {
+        todolistAPI.DeleteTodolist(todolistId)
+            .then(res => {
+                dispatch(RemoveTodolist(todolistId))
+            })
+    }
+};
