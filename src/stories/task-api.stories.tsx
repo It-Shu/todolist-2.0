@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {taskAPI} from "../api/task-api";
+import {taskAPI, TaskPriorities, TaskStatuses} from "../api/task-api";
 
 export default {
     title: 'API'
@@ -50,7 +50,15 @@ export const UpdateTaskTitle = () => {
     useEffect(() => {
         const todolistId = 'cb3b32f1-4d02-4bc3-8db6-f1d5db28c842';
         const taskId = '970c8f61-b193-4d0c-992b-44afbcd1dbfa';
-        taskAPI.UpdateTask(todolistId, taskId, '1111111111111111')
+        const modal = {
+            title: '111111111111',
+            description: '',
+            status: 0,
+            priority: 0,
+            startDate: '',
+            deadline: '',
+        }
+        taskAPI.UpdateTask(todolistId, taskId, modal)
             .then(res => {
                 setState(res.data)
             })

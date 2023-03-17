@@ -3,8 +3,8 @@ import {AddItemForm} from "../addItem-form/AddItemForm";
 import EditableSpan from "../editable-span/EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-import {FilterValuesType, TasksStateType} from "../../AppWithRedux";
 import Task from "../Task/Task";
+import {FilterValuesType} from "../../state/todolists-reducer";
 
 export interface TaskType {
     id: string
