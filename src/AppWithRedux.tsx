@@ -1,21 +1,28 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import Todolist, {TaskType} from './components/todolist/Todolist';
 import {AddItemForm} from "./components/addItem-form/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {AddNewTask, ChangeTaskStatus, ChangeTaskTitle, RemoveTask} from "./state/task-reducer";
-import {AddTodolist, ChangeTodolistFilter, ChangeTodolistTitle, RemoveTodolist,} from "./state/todolists-reducer";
+import {
+    AddTodolist,
+    ChangeTodolistFilter,
+    ChangeTodolistTitle, FilterValuesType,
+    RemoveTodolist,
+    SetTodolists, TodolistDomainType,
+} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store/store";
+import {todolistAPI} from "./api/todolist-api";
 
-export type FilterValuesType = 'all' | 'active' | 'completed'
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+// export type FilterValuesType = 'all' | 'active' | 'completed'
+//
+// export type TodolistType = {
+//     id: string
+//     title: string
+//     filter: FilterValuesType
+// }
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -23,9 +30,17 @@ export type TasksStateType = {
 
 function AppWithRedux() {
 
-    const todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+       todolistAPI.GetTodolists()
+           .then((res) => {
+               let todos = res.data
+               dispatch(SetTodolists(todos))
+           })
+    },[])
 
     // todolist
     const removeTodolist = useCallback((id: string) => {
